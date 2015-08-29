@@ -41,7 +41,7 @@ public class Customer {
 
             total += accountStatement.getStatementTotal();
         }
-        statementBuilder.append("\nTotal In All Accounts " + Util.toDollars(total));
+        statementBuilder.append("\nTotal In All Accounts ").append(Util.toDollars(total));
         return statementBuilder.toString();
     }
 }
