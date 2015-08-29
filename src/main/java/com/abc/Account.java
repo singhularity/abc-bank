@@ -54,7 +54,7 @@ public abstract class Account {
         }
     }
 
-    public List<Transaction> getTransactionsList() {
+    protected List<Transaction> getTransactionsList() {
         List<Transaction> allTransactions = new ArrayList<Transaction>();
         for(Date date: transactions.keySet()) {
             allTransactions.addAll(transactions.get(date));
@@ -62,7 +62,7 @@ public abstract class Account {
         return allTransactions;
     }
 
-    public Map<Date, List<Transaction>> getTransactions() {
+    protected Map<Date, List<Transaction>> getTransactions() {
         return transactions;
     }
 
