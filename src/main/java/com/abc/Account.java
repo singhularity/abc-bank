@@ -68,6 +68,8 @@ public abstract class Account {
 
     public abstract double interestEarned();
 
+    public abstract Statement statementForAccount();
+
     public double sumTransactions(Date dateOfTransaction) {
         double amount = 0.0;
         for (Transaction t: getTransactions().get(dateOfTransaction))
@@ -82,7 +84,14 @@ public abstract class Account {
         return amount;
     }
 
-    public AccountType getAccountType() {
-        return accountType;
+    protected double transactionSummary(StringBuilder s)
+    {
+        double total = 0.0;
+        for (Transaction t : getTransactionsList()) {
+            Double amount = t.getAmount();
+            s.append(t);
+            total += amount;
+        }
+        return total;
     }
 }

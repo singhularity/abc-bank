@@ -15,8 +15,8 @@ public class SavingsAccount extends Account {
 
     public double interestEarned() {
         double amount = 0.0;
-        Map<Date, List<Transaction>> dailyTrasactions = getTransactions();
-        for (Date transactionDate : dailyTrasactions.keySet()){
+        Map<Date, List<Transaction>> dailyTransactions = getTransactions();
+        for (Date transactionDate : dailyTransactions.keySet()){
             amount += calculateAmountWithInterest(transactionDate, amount);
         }
         return amount;
@@ -29,6 +29,15 @@ public class SavingsAccount extends Account {
         else
             amount += 1 + (amountThisDay - 1000) * 0.002;
         return amount;
+    }
+
+    public Statement statementForAccount() {
+        StringBuilder s = new StringBuilder();
+        s.append("Savings Account\n");
+
+        double total = transactionSummary(s);
+        s.append("Total ").append(Util.toDollars(total));
+        return new Statement(s.toString(), total);
     }
 }
 

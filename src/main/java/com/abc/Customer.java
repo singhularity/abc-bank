@@ -33,41 +33,15 @@ public class Customer {
     }
 
     public String getStatement() {
-        String statement = null;
-        statement = "Statement for " + name + "\n";
+        StringBuilder statementBuilder = new StringBuilder("Statement for " + name + "\n");
         double total = 0.0;
         for (Account a : accounts) {
-            statement += "\n" + statementForAccount(a) + "\n";
-            total += a.sumTransactions();
-        }
-        statement += "\nTotal In All Accounts " + Util.toDollars(total);
-        return statement;
-    }
+            Statement accountStatement = a.statementForAccount();
+            statementBuilder.append("\n").append(accountStatement.getStatementSummary()).append("\n");
 
-    private String statementForAccount(Account account) {
-        StringBuilder s = new StringBuilder();
-
-       //Translate to pretty account type
-        switch(account.getAccountType()){
-            case CHECKING:
-                s.append("Checking Account\n");
-                break;
-            case SAVINGS:
-                s.append("Savings Account\n");
-                break;
-            case MAXI_SAVINGS:
-                s.append("Maxi Savings Account\n");
-                break;
+            total += accountStatement.getStatementTotal();
         }
-
-        //Now total up all the transactions
-        double total = 0.0;
-        for (Transaction t : account.getTransactionsList()) {
-            Double amount = t.getAmount();
-            s.append(t);
-            total += amount;
-        }
-        s.append("Total ").append(Util.toDollars(total));
-        return s.toString();
+        statementBuilder.append("\nTotal In All Accounts " + Util.toDollars(total));
+        return statementBuilder.toString();
     }
 }

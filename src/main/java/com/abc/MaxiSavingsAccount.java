@@ -15,11 +15,11 @@ public class MaxiSavingsAccount extends Account {
 
     public double interestEarned() {
         double amount = 0.0;
-        Map<Date, List<Transaction>> dailyTrasactions = getTransactions();
-        List<Date> dates = new ArrayList<Date>(dailyTrasactions.keySet());
+        Map<Date, List<Transaction>> dailyTransactions = getTransactions();
+        List<Date> dates = new ArrayList<Date>(dailyTransactions.keySet());
         Date lastTransactionDate = dates.get(dates.size() - 1);
 
-        for (Date transactionDate : dailyTrasactions.keySet()) {
+        for (Date transactionDate : dailyTransactions.keySet()) {
             amount += calculateAmountWithInterest(transactionDate, lastTransactionDate, amount);
         }
 
@@ -35,6 +35,15 @@ public class MaxiSavingsAccount extends Account {
             interest = 0.05;
         }
         return amountThisDay * interest;
+    }
+
+    public Statement statementForAccount() {
+        StringBuilder s = new StringBuilder();
+        s.append("Maxi Savings Account\n");
+
+        double total = transactionSummary(s);
+        s.append("Total ").append(Util.toDollars(total));
+        return new Statement(s.toString(), total);
     }
 }
 

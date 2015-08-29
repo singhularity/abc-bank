@@ -15,12 +15,21 @@ public class CheckingAccount extends Account
 
     public double interestEarned() {
         double amount = 0.0;
-        Map<Date, List<Transaction>> dailyTrasactions = getTransactions();
-        for(Date transactionDate : dailyTrasactions.keySet())
+        Map<Date, List<Transaction>> dailyTransactions = getTransactions();
+        for(Date transactionDate : dailyTransactions.keySet())
         {
             amount += ((amount + sumTransactions(transactionDate)) * 0.001);
         }
         return amount;
+    }
+
+    public Statement statementForAccount() {
+        StringBuilder s = new StringBuilder();
+        s.append("Checking Account\n");
+
+        double total = transactionSummary(s);
+        s.append("Total ").append(Util.toDollars(total));
+        return new Statement(s.toString(), total);
     }
 }
 
