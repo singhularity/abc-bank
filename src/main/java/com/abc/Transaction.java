@@ -17,6 +17,10 @@ public class Transaction {
         this.transactionDate = DateProvider.INSTANCE.now();
     }
 
+    public Date getTransactionDate() {
+        return transactionDate;
+    }
+
     @Override
     public String toString() {
         return "  " + (type == TransactionType.WITHDRAWAL ? "withdrawal" : "deposit") + " " + Util.toDollars(amount) + "\n";

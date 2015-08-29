@@ -1,23 +1,38 @@
 package com.abc;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public abstract class Account {
 
     private final AccountType accountType;
-    private List<Transaction> transactions;
+    private Map<Date, List<Transaction>> transactions;
 
     public Account(AccountType accountType) {
         this.accountType = accountType;
-        this.transactions = new ArrayList<Transaction>();
+        this.transactions = new HashMap<Date, List<Transaction>>();
     }
 
     public void deposit(double amount) {
         if (amount <= 0) {
             throw new IllegalArgumentException("amount must be greater than zero");
         } else {
-            transactions.add(new Transaction(amount, TransactionType.DEPOSIT));
+            Transaction transaction = new Transaction(amount, TransactionType.DEPOSIT);
+            addTransaction(transaction);
+        }
+    }
+
+    private void addTransaction(Transaction transaction)
+    {
+        Date transactionDate = Util.getDateOnly(transaction.getTransactionDate());
+        if(transactions.containsKey(transactionDate))
+        {
+            transactions.get(transactionDate).add(transaction);
+        }
+        else
+        {
+            List<Transaction> transactionList = new ArrayList<Transaction>();
+            transactionList.add(transaction);
+            transactions.put(transactionDate, transactionList);
         }
     }
 
@@ -25,7 +40,7 @@ public abstract class Account {
         if (amount <= 0) {
             throw new IllegalArgumentException("amount must be greater than zero");
         } else {
-            transactions.add(new Transaction(amount, TransactionType.WITHDRAWAL));
+            addTransaction(new Transaction(amount, TransactionType.WITHDRAWAL));
         }
     }
 
@@ -39,7 +54,15 @@ public abstract class Account {
         }
     }
 
-    public List<Transaction> getTransactions() {
+    public List<Transaction> getTransactionsList() {
+        List<Transaction> allTransactions = new ArrayList<Transaction>();
+        for(Date date: transactions.keySet()) {
+            allTransactions.addAll(transactions.get(date));
+        }
+        return allTransactions;
+    }
+
+    public Map<Date, List<Transaction>> getTransactions() {
         return transactions;
     }
 
@@ -51,7 +74,7 @@ public abstract class Account {
 
     private double checkIfTransactionsExist(boolean checkAll) {
         double amount = 0.0;
-        for (Transaction t: transactions)
+        for (Transaction t: getTransactionsList())
             amount += t.getAmount();
         return amount;
     }

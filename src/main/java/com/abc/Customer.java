@@ -62,7 +62,7 @@ public class Customer {
 
         //Now total up all the transactions
         double total = 0.0;
-        for (Transaction t : account.getTransactions()) {
+        for (Transaction t : account.getTransactionsList()) {
             Double amount = t.getAmount();
             s.append(t);
             total += amount;
