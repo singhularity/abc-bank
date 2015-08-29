@@ -12,9 +12,13 @@ public class Transaction {
     }
 
     public Transaction(double amount, TransactionType type) {
+        this(amount, type, DateProvider.INSTANCE.now());
+    }
+
+    public Transaction(double amount, TransactionType type, Date transactionDate) {
         this.amount = amount;
         this.type = type;
-        this.transactionDate = DateProvider.INSTANCE.now();
+        this.transactionDate = transactionDate;
     }
 
     public Date getTransactionDate() {

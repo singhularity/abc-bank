@@ -13,10 +13,31 @@ public abstract class Account {
     }
 
     public void deposit(double amount) {
+        deposit(amount, null);
+    }
+
+    public void deposit(double amount, Date transactionDate) {
         if (amount <= 0) {
             throw new IllegalArgumentException("amount must be greater than zero");
         } else {
             Transaction transaction = new Transaction(amount, TransactionType.DEPOSIT);
+            if (transactionDate != null)
+                transaction.setTransactionDate(transactionDate);
+            addTransaction(transaction);
+        }
+    }
+
+    public void withdraw(double amount) {
+        withdraw(amount, null);
+    }
+
+    public void withdraw(double amount, Date transactionDate) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("amount must be greater than zero");
+        } else {
+            Transaction transaction = new Transaction(amount, TransactionType.WITHDRAWAL);
+            if (transactionDate != null)
+                transaction.setTransactionDate(transactionDate);
             addTransaction(transaction);
         }
     }
@@ -33,14 +54,6 @@ public abstract class Account {
             List<Transaction> transactionList = new ArrayList<Transaction>();
             transactionList.add(transaction);
             transactions.put(transactionDate, transactionList);
-        }
-    }
-
-    public void withdraw(double amount) {
-        if (amount <= 0) {
-            throw new IllegalArgumentException("amount must be greater than zero");
-        } else {
-            addTransaction(new Transaction(amount, TransactionType.WITHDRAWAL));
         }
     }
 
