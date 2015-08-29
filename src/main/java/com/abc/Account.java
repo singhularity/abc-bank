@@ -6,7 +6,7 @@ import java.util.List;
 public abstract class Account {
 
     private final AccountType accountType;
-    public List<Transaction> transactions;
+    private List<Transaction> transactions;
 
     public Account(AccountType accountType) {
         this.accountType = accountType;
@@ -21,13 +21,27 @@ public abstract class Account {
         }
     }
 
-public void withdraw(double amount) {
-    if (amount <= 0) {
-        throw new IllegalArgumentException("amount must be greater than zero");
-    } else {
-        transactions.add(new Transaction(amount, TransactionType.WITHDRAWAL));
+    public void withdraw(double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("amount must be greater than zero");
+        } else {
+            transactions.add(new Transaction(amount, TransactionType.WITHDRAWAL));
+        }
     }
-}
+
+    public void transfer(Account to, double amount)
+    {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("amount must be greater than zero");
+        } else {
+            this.withdraw(amount);
+            to.deposit(amount);
+        }
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
 
     public abstract double interestEarned();
 
@@ -45,5 +59,4 @@ public void withdraw(double amount) {
     public AccountType getAccountType() {
         return accountType;
     }
-
 }
