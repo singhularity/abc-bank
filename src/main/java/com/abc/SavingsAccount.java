@@ -34,9 +34,7 @@ public class SavingsAccount extends Account {
     public Statement statementForAccount() {
         StringBuilder s = new StringBuilder();
         s.append("Savings Account\n");
-
         double total = transactionSummary(s);
-        s.append("Total ").append(Util.toDollars(total));
         return new Statement(s.toString(), total);
     }
 }

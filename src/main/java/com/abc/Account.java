@@ -92,6 +92,7 @@ public abstract class Account {
             s.append(t);
             total += amount;
         }
+        s.append("Total ").append(Util.toDollars(total));
         return total;
     }
 }

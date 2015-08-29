@@ -26,9 +26,7 @@ public class CheckingAccount extends Account
     public Statement statementForAccount() {
         StringBuilder s = new StringBuilder();
         s.append("Checking Account\n");
-
         double total = transactionSummary(s);
-        s.append("Total ").append(Util.toDollars(total));
         return new Statement(s.toString(), total);
     }
 }

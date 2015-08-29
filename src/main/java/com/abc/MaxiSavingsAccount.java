@@ -40,9 +40,7 @@ public class MaxiSavingsAccount extends Account {
     public Statement statementForAccount() {
         StringBuilder s = new StringBuilder();
         s.append("Maxi Savings Account\n");
-
         double total = transactionSummary(s);
-        s.append("Total ").append(Util.toDollars(total));
         return new Statement(s.toString(), total);
     }
 }
