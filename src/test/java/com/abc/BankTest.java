@@ -51,4 +51,20 @@ public class BankTest {
         assertEquals(3.0, bank.totalInterestPaid(), DOUBLE_DELTA);
     }
 
+    @Test
+    public void transfer_checking_savings() {
+        Bank bank = new Bank();
+        Account checkingAccount = new CheckingAccount();
+        Account savingsAccount = new SavingsAccount();
+        bank.addCustomer(new Customer("Bill").openAccount(checkingAccount).openAccount(savingsAccount));
+
+        checkingAccount.deposit(3000.0);
+
+        checkingAccount.transfer(savingsAccount, 1000);
+        savingsAccount.transfer(checkingAccount, 500);
+
+        assertEquals(2500, checkingAccount.sumTransactions(), DOUBLE_DELTA);
+        assertEquals(500, savingsAccount.sumTransactions(), DOUBLE_DELTA);
+    }
+
 }
