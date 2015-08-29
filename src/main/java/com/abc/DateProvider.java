@@ -10,9 +10,9 @@ public enum DateProvider {
         return Calendar.getInstance().getTime();
     }
 
-    public Date after(int days) {
+    public Date after(Date startDate, int days) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
+        calendar.setTime(startDate);
         calendar.add(Calendar.DATE, days);
         return calendar.getTime();
     }

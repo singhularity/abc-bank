@@ -9,7 +9,7 @@ public abstract class Account {
 
     public Account(AccountType accountType) {
         this.accountType = accountType;
-        this.transactions = new HashMap<Date, List<Transaction>>();
+        this.transactions = new TreeMap<Date, List<Transaction>>();
     }
 
     public void deposit(double amount) {
@@ -68,11 +68,14 @@ public abstract class Account {
 
     public abstract double interestEarned();
 
-    public double sumTransactions() {
-       return checkIfTransactionsExist(true);
+    public double sumTransactions(Date dateOfTransaction) {
+        double amount = 0.0;
+        for (Transaction t: getTransactions().get(dateOfTransaction))
+            amount += t.getAmount();
+        return amount;
     }
 
-    private double checkIfTransactionsExist(boolean checkAll) {
+    public double sumTransactions() {
         double amount = 0.0;
         for (Transaction t: getTransactionsList())
             amount += t.getAmount();
