@@ -29,6 +29,10 @@ public class Transaction {
         this.transactionDate = transactionDate;
     }
 
+    public TransactionType getType() {
+        return type;
+    }
+
     @Override
     public String toString() {
         return "  " + (type == TransactionType.WITHDRAWAL ? "withdrawal" : "deposit") + " " + Util.toDollars(amount) + "\n";
