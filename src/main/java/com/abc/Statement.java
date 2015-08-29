@@ -2,6 +2,9 @@ package com.abc;
 
 /**
  * Created by ssingh on 8/29/15.
+ *
+ * A helper class representing a Statement.
+ * It has a string representation of the Summary and total on the Statement
  */
 public class Statement {
     private String statementSummary;

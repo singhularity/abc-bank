@@ -3,6 +3,9 @@ package com.abc;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class representing a Customer
+ */
 public class Customer {
     private String name;
     private List<Account> accounts;
@@ -25,6 +28,10 @@ public class Customer {
         return accounts.size();
     }
 
+    /**
+     *
+     * @return Total interest earned by this Customer
+     */
     public double totalInterestEarned() {
         double total = 0;
         for (Account account : accounts)
@@ -32,6 +39,10 @@ public class Customer {
         return total;
     }
 
+    /**
+     *
+     * @return Statement for this Customer
+     */
     public String getStatement() {
         StringBuilder statementBuilder = new StringBuilder("Statement for " + name + "\n");
         double total = 0.0;

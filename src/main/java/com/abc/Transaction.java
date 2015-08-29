@@ -2,11 +2,20 @@ package com.abc;
 
 import java.util.Date;
 
+/**
+ * Class representing a Transaction
+ * Can either be a withdrawal or a deposit
+ */
+
 public class Transaction {
     private final double amount;
     private TransactionType type;
     private Date transactionDate;
 
+    /**
+     *
+     * @return Amount which can be negative or positive depending on a deposit or withdrawal
+     */
     public double getAmount() {
         return type == TransactionType.DEPOSIT ? amount : -amount;
     }
